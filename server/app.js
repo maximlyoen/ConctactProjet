@@ -10,17 +10,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Example route for handling /api/posts
-app.get('/api/posts', async (req, res) => {
+// Example route for handling /api/entreprises
+app.get('/api/entreprises', async (req, res) => {
   try {
-    // Make a request to localhost:3001/posts
-    const response = await axios.get('http://localhost:3001/posts');
+    // Make a request to localhost:3001/entreprises
+    const response = await axios.get('http://localhost:3001/entreprises');
 
-    // Extract posts from the response data
-    const posts = response.data;
+    // Extract entreprises from the response data
+    const entreprises = response.data;
 
-    // Respond with the posts in JSON format
-    res.json({ posts });
+    // Respond with the entreprises in JSON format
+    res.json({ entreprises });
   } catch (error) {
     console.error('Error fetching posts:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });

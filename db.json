@@ -1,6 +1,10 @@
 {
-    "posts": [
-        { "id": 1, "title": "Post 1" },
-        { "id": 2, "title": "Post 2" }
+    "entreprises": [
+        { "id": 1, "name": "CGI", "logo": "https://picsum.photos/100" },
+        { "id": 2, "name": "SQLI", "logo": "https://picsum.photos/100" }
+    ],
+    "table": [
+        { "id": 1, "title": "table 1" },
+        { "id": 2, "title": "table 2" }
     ]
 }
