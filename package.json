@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "json-server": "^0.17.4"
+    "json-server": "^0.17.4",
+    "react-icons": "^4.12.0"
   }
 }
