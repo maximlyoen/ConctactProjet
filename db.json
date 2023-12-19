@@ -1,7 +1,8 @@
 {
     "entreprises": [
         { "id": 1, "name": "CGI", "logo": "https://picsum.photos/100" },
-        { "id": 2, "name": "SQLI", "logo": "https://picsum.photos/100" }
+        { "id": 2, "name": "SQLI", "logo": "https://picsum.photos/100" },
+        { "id": 3, "name": "TESTTET", "logo": "https://picsum.photos/100" }
     ],
     "table": [
         { "id": 1, "title": "table 1" },
