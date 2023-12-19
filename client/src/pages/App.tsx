@@ -1,15 +1,11 @@
 import { Header, EntrepriseCard } from '../components/';
 import { useState, useEffect } from 'react';
+import { TEntreprise } from '../types/';
 
 export const App = () => {
-  type Entreprise = {
-    id: number;
-    name: string;
-    logo: string;
-  };
 
   type ApiResponse = {
-    entreprises: Entreprise[];
+    entreprises: TEntreprise[];
   };
 
   const [response, setResponse] = useState<ApiResponse | null>(null);
@@ -46,11 +42,9 @@ export const App = () => {
           <div>Error!</div>
         )}
         
-        <ul>
-          {response && response.entreprises.map((entreprise: Entreprise) => (
+          {response && response.entreprises.map((entreprise: TEntreprise) => (
             <EntrepriseCard key={entreprise.id} entreprise={entreprise} />
           ))}
-        </ul>
       </div>
     </>
   );
