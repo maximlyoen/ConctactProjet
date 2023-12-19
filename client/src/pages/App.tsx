@@ -1,40 +1,47 @@
-import { useState, useEffect } from 'react'
-import { EntrepriseCard, Header } from '../components/';
+import { Header } from '../components/';
+import useFetch from '../hooks/useFetch';
 
-export const  App = () => {
+export const App = () => {
   type Entreprise = {
     id: number;
     name: string;
     logo: string;
   }
 
-  type EntrepriseResponse = {
-    entreprises: Entreprise[];
+  type Response = {
+    entreprises: Entreprise[]
   }
 
-  const [entreprises, setEntreprises] = useState<Entreprise[]>([]);
+  type ApiResponse = {
+    response: Response | null;
+    loading: boolean;
+    error: Error | null;
+  };
 
-  const fetchData = async () => {
-    const response = await fetch('http://localhost:3000/api/entreprises');
-    const data: EntrepriseResponse = await response.json();
-    setEntreprises(data.entreprises);
+  const { response, loading, error }: ApiResponse = useFetch('http://localhost:3000/api/entreprises');
+
+  if (loading) {
+    return <p>Loading...</p>
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (error) {
+    return <p>Error: {error}</p>
+  }
 
   return (
     <>
       <div>
-        < Header />
+        <Header />
         <h1>Posts</h1>
         <ul>
-          {entreprises.map(entreprise => (
+          {/*entreprises.map((entreprise: Entreprise) => (
             <EntrepriseCard key={entreprise.id} entreprise={entreprise} />
-          ))}
+          ))*/}
+          <pre>
+            {JSON.stringify(response, null, 2)}
+          </pre>
         </ul>
       </div>
     </>
-  )
-}
+  );
+};
