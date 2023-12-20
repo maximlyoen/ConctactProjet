@@ -47,8 +47,9 @@ export const Entreprises = () => {
           <div>Error!</div>
         )}
         {
-            response &&
-            <EntrepriseList entreprises={response} />
+          <div className="flex justify-center">
+            { response && <EntrepriseList entreprises={response} /> }
+          </div>
         }
       </div>
     );

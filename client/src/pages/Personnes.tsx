@@ -1,20 +1,56 @@
 import { Header } from "../components";
-import { useAuth } from "../hooks/useAuth";
+import { TPersonne } from "../types";
+import { useState, useEffect } from "react";
+import { PersonneList } from "../components/PersonneList";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 export const Personnes = () => {
-    const { token } = useAuth();
-    const navigate = useNavigate();
 
-    useEffect(() => {
+    type ApiResponse = {
+        personnes: TPersonne[];
+      };
+    
+      const [response, setResponse] = useState<ApiResponse | null>(null);
+      const [loading, setLoading] = useState<boolean>(true);
+      const [error, setError] = useState<string | null>(null);
+      const { token } = useAuth();
+      const navigate = useNavigate();
+    
+      useEffect(() => {
         if (!token) navigate("/");
-    }, []);
+
+        const fetchData = async () => {
+          try {
+            const res = await fetch('http://localhost:3000/api/personnes');
+            const data = await res.json();
+            setResponse(data);
+            setLoading(false);
+          } catch (error) {
+            setError('Error fetching data');
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
     return (
         <div>
-            <Header />
-            <h1>Personnes</h1>
-        </div>
+        <Header />
+
+        {loading && (
+          <div>Loading...</div>
+        )}
+
+        {error && (
+          <div>Error!</div>
+        )}
+        {
+            <div className="flex justify-center">
+              { response && <PersonneList personnes={response} /> }
+            </div>
+        }
+      </div>
     );
 }

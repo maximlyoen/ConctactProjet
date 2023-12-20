@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const fetchDataForAllPersonnes = require('./functions');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -21,6 +22,49 @@ app.get('/api/entreprises', async (req, res) => {
 
     // Respond with the entreprises in JSON format
     res.json({ entreprises });
+  } catch (error) {
+    console.error('Error fetching posts:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/entreprises/:id', async (req, res) => {
+  try {
+    // Make a request to localhost:3001/entreprises/:id
+    const response = await axios.get(`http://localhost:3001/entreprises/${req.params.id}`);
+
+    // Extract entreprises from the response data
+    const entreprise = response.data;
+
+    // Respond with the entreprises in JSON format
+    res.json({ entreprise });
+  } catch (error) {
+    console.error('Error fetching posts:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/personnes', async (req, res) => {
+  try {
+    fetchDataForAllPersonnes().then(results => {
+      res.json({results});
+    });
+  } catch (error) {
+    console.error('Error fetching posts:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/personnes/:id', async (req, res) => {
+  try {
+    // Make a request to localhost:3001/personnes/:id
+    const response = await axios.get(`http://localhost:3001/personnes/${req.params.id}`);
+
+    // Extract personnes from the response data
+    const personne = response.data;
+
+    // Respond with the personnes in JSON format
+    res.json({ personne });
   } catch (error) {
     console.error('Error fetching posts:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
