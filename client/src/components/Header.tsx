@@ -13,6 +13,7 @@ export const Header = () => {
     };
 
     const handleLogout = () => {
+        window.location.reload();
         logout();
     };
 
