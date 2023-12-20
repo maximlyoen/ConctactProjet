@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App, Login, Entreprises, Personnes } from './pages'
+import { App, Login, Entreprises, Personnes, SinglePersonne } from './pages'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/personnes",
     element: <Personnes />,
+  },
+  {
+    path: "/personne/:id",
+    element: <SinglePersonne />,
   },
   {
     path: "/login",

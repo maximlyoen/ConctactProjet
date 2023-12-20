@@ -43,4 +43,7 @@ async function fetchDataForAllPersonnes() {
 }
 
 // Export the function
-module.exports = fetchDataForAllPersonnes;
+module.exports = {
+  fetchDataForAllPersonnes,
+  fetchDataForEntreprise
+}
