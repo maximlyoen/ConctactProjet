@@ -46,8 +46,8 @@ app.get('/api/entreprises/:id', async (req, res) => {
 
 app.get('/api/personnes', async (req, res) => {
   try {
-    fetchDataForAllPersonnes().then(results => {
-      res.json({results});
+    fetchDataForAllPersonnes().then(personnes => {
+      res.json({personnes});
     });
   } catch (error) {
     console.error('Error fetching posts:', error.message);
