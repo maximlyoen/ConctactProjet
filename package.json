@@ -12,6 +12,6 @@
     "eslint-plugin-react-refresh": "^0.4.5"
   },
   "scripts": {
-    "lint": "eslint ./client/src/**/*.ts*"
+    "lint": "eslint ./client/src/**/*.{ts,tsx} --ignore-pattern ./client/src/hooks/**"
   }
 }
