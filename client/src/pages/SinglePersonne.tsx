@@ -47,7 +47,7 @@ export const SinglePersonne = () => {
         )}
 
         {error && (
-          <div>Error!</div>
+          <div>{error}</div>
         )}
         {
             <div className="flex justify-center">
