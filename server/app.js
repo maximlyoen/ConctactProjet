@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const fetchDataForAllPersonnes = require('./functions');
+const { fetchDataForAllPersonnes, fetchDataForEntreprise} = require('./functions');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -59,12 +59,17 @@ app.get('/api/personnes/:id', async (req, res) => {
   try {
     // Make a request to localhost:3001/personnes/:id
     const response = await axios.get(`http://localhost:3001/personnes/${req.params.id}`);
-
     // Extract personnes from the response data
     const personne = response.data;
 
+    const resultsArray = await fetchDataForEntreprise(personne.entreprise);
+    const result = {
+      ...personne,
+      entreprise: resultsArray
+    };
+
     // Respond with the personnes in JSON format
-    res.json({ personne });
+    res.json({ result });
   } catch (error) {
     console.error('Error fetching posts:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });

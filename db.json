@@ -19,7 +19,7 @@
         { "id": 17, "name": "TEST15", "logo": "https://picsum.photos/100" }
     ],
     "personnes": [
-        { "id": 1, "name": "name", "firstname": "firstname", "email": "email", "entreprise": 1, "rh": true },
+        { "id": 1, "name": "name", "firstname": "firstname", "email": "email", "entreprise": 1, "rh": true, "forumStages": ["2019", "2020", "2021"], "jobDating": ["2020", "2021"], "taxeApprentissage": ["2019 (5€)", "2020 (100€)", "2021 (600€)"], "tuteur": ["2020"], "matineeInov": ["2019", "2020", "2021"]},
         { "id": 2, "name": "name2", "firstname": "firstname2", "email": "email2", "entreprise": 2 },
         { "id": 3, "name": "name3", "firstname": "firstname3", "email": "email3", "entreprise": 3, "rh": true},
         { "id": 4, "name": "name4", "firstname": "firstname4", "email": "email4", "entreprise": 4 },

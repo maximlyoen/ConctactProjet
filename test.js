@@ -44,6 +44,6 @@ async function fetchDataForAllPersonnes() {
 
 // Call the async function and log the array using await
 (async () => {
-  const resultsArray = await fetchDataForAllPersonnes();
+  const resultsArray = await fetchDataForEntreprise(1);
   console.log(resultsArray);
 })();
