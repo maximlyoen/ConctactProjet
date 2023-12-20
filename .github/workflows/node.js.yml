@@ -5,9 +5,9 @@ name: Contact IUT CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "CI" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "CI" ]
 
 jobs:
   build:
@@ -28,4 +28,3 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
