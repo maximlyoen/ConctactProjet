@@ -1,7 +1,6 @@
-import { Header } from "../components";
+import { Header, EntrepriseList } from "../components";
 import { TEntreprise } from "../types";
 import { useState, useEffect } from 'react';
-import { EntrepriseList } from "../components/";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
