@@ -8,11 +8,13 @@ const useFetch = (url: string) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      type NewType = any;
+
       try {
         const res = await fetch(url);
         const data = await res.json();
         setResponse(data);
-      } catch (err: any) {
+      } catch (err: NewType) {
         setError(err);
       } finally {
         setLoading(false);
