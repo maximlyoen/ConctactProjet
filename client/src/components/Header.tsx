@@ -1,6 +1,10 @@
 import { useAuth } from "../hooks/useAuth";
 import { IoIosContacts } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
+import * as dotenv from 'dotenv';
+
+var jwt = require('jsonwebtoken');
+dotenv.config();
 
 export const Header = () => {
     const { token, login, logout } = useAuth();
@@ -8,8 +12,10 @@ export const Header = () => {
 
     const handleLogin = () => {
         // Assuming you get the JWT token from some authentication process
-        const jwtToken = 'your_jwt_token_here';
-        login(jwtToken);
+
+        // TODO : Gérer le CAS et récupérer l'utilisateur pour le passer en paramètre dans la fonction login
+        
+        login(); 
     };
 
     const handleLogout = () => {
@@ -18,13 +24,30 @@ export const Header = () => {
     };
 
     const handleEntreprises = () => {
-        if (token) navigate("/entreprises");
-        if (!token) navigate("/");
+        jwt.verify(token, process.env.APP_SECRET, (err: any) => {
+            if (err) {
+                navigate("/");
+            }
+            else {
+                navigate("/entreprises");
+            }
+        });
+
+        // if (token) navigate("/entreprises");
+        // if (!token) navigate("/");
     }
 
     const handlePersonnes = () => {
-        if (token) navigate("/personnes");
-        if (!token) navigate("/");
+        jwt.verify(token, process.env.APP_SECRET, (err : any) => {
+            if (err) {
+                navigate("/");
+            }
+            else {
+                navigate("/personnes");
+            }
+        });
+        // if (token) navigate("/personnes");
+        // if (!token) navigate("/");
     }
 
     return (

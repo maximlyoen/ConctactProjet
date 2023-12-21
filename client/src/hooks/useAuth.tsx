@@ -1,8 +1,12 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import * as dotenv from 'dotenv';
+
+var jwt = require('jsonwebtoken');
+dotenv.config();
 
 interface AuthContextType {
   token: string | null;
-  login: (jwtToken: string) => void;
+  login: () => void;
   logout: () => void;
 }
 
@@ -18,10 +22,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return localStorage.getItem('token') || null;
   });
 
-  const login = (jwtToken: string) => {
-    setToken(jwtToken);
-    // Save token to localStorage or other persistent storage
-    localStorage.setItem('token', jwtToken);
+  const login = () => {
+    try {
+      jwt.verify(token, process.env.APP_SECRET);
+    } catch(err) {
+      const jwtToken = jwt.sign(
+          {
+              // TODO : remplcer par les données de l'utilisateur
+              username: 'nom',
+          }, 
+          process.env.APP_SECRET, { expiresIn: '1h' }
+      );
+      setToken(jwtToken);
+      // Save token to localStorage or other persistent storage
+      localStorage.setItem('token', jwtToken);
+    }
   };
 
   const logout = () => {
