@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-
 export const Entreprises = () => {
     interface ApiResponse {
         entreprises: TEntreprise[];
@@ -16,18 +15,18 @@ export const Entreprises = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!token) navigate("/");
+    if (!token) navigate("/");
 
+    useEffect(() => {
         const fetchData = async () => {
             try {
-            const res = await fetch('http://localhost:3000/api/entreprises');
-            const data = await res.json();
-            setResponse(data);
-            setLoading(false);
+              const res = await fetch('http://localhost:3000/api/entreprises');
+              const data : ApiResponse = await res.json();
+              setResponse(data);
+              setLoading(false);
             } catch (error) {
-            setError('Error fetching data');
-            setLoading(false);
+              setError('Error fetching data');
+              setLoading(false);
             }
         };
 

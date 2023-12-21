@@ -13,13 +13,14 @@ export const App = () => {
     <>
       <div>
         <Header />
-
-        <h1>
-          Bienvenue sur la page d'accueil mon ga connecte toi stp sinon t'as le droit à rien
-        </h1>
+        <h1 className="font-bold text-4xl text-center">salu boss</h1>
         {!token && 
-          (
+          (<>
+            <h1>
+              Page d'accueil connecte toi stp
+            </h1>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={handleLogin}>Se connecter</button>
+          </>
           )
           }
       </div>

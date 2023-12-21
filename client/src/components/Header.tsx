@@ -1,6 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { IoIosContacts } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Header = () => {
     const { token, login, logout } = useAuth();
@@ -18,13 +19,23 @@ export const Header = () => {
     };
 
     const handleEntreprises = () => {
-        if (token) navigate("/entreprises");
-        if (!token) navigate("/");
+        if (token) {
+            navigate("/entreprises")
+        }
+        if (!token) {
+            navigate("/")
+            toast.error("Veuillez vous connecter pour accéder à cette page");
+        }
     }
 
     const handlePersonnes = () => {
-        if (token) navigate("/personnes");
-        if (!token) navigate("/");
+        if (token) {
+            navigate("/personnes")
+        }
+        if (!token) {
+            navigate("/")
+            toast.error("Veuillez vous connecter pour accéder à cette page");
+        }
     }
 
     return (
@@ -43,6 +54,7 @@ export const Header = () => {
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded"onClick={handleLogin}>Login</button>
             )}
         </div>
+        <Toaster position="bottom-right"/>
     </header>
     )
 }

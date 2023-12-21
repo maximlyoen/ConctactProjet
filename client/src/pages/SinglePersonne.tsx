@@ -6,20 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export const SinglePersonne = () => {
-  // Extract the id parameter from the URL
-  const { id } = useParams();
-  // Fetch the data from the API
-
-
-  type ApiResponse = {
-    personne: TPersonne;
-  };
-
   const [personne, setPersonne] = useState<TPersonne | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { token } = useAuth();
+  const { id } = useParams();
   const navigate = useNavigate();
+
+  type ApiResponse = {
+    personne: TPersonne;
+  };
 
   useEffect(() => {
     if (!token) navigate("/");
@@ -52,12 +48,15 @@ export const SinglePersonne = () => {
         {
             <div className="flex justify-center">
               {personne && 
-              ( <>
-                  <p className="text-7xl">{personne.name} {personne.firstname}</p>
-                  <p>{personne.email}</p>
-                </>
-              )
+                ( <>
+                    <p className="text-7xl">{personne.name} {personne.firstname}</p>
+                    <p>{personne.email}</p>
+                  </>
+                )
               }
+              <pre>
+                {JSON.stringify(personne, null, 2)}
+              </pre>
             </div>
         }
       </div>

@@ -16,10 +16,11 @@ export const Personnes = () => {
       const [error, setError] = useState<string | null>(null);
       const { token } = useAuth();
       const navigate = useNavigate();
-    
-      useEffect(() => {
-        if (!token) navigate("/");
 
+
+      if (!token) navigate("/");
+
+      useEffect(() => {
         const fetchData = async () => {
           try {
             const res = await fetch('http://localhost:3000/api/personnes');
