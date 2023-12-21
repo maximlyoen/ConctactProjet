@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function fetchDataForEntreprise(entrepriseId) {
   try {
-    const response = await axios.get(`http://localhost:3001/entreprises/${entrepriseId}`);
+    const response = await axios.get(`${bdUrl}/entreprises/${entrepriseId}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching data for entreprise ${entrepriseId}:`, error.message);
@@ -12,7 +12,7 @@ async function fetchDataForEntreprise(entrepriseId) {
 
 async function fetchData() {
   try {
-    const response = await axios.get('http://localhost:3001/personnes');
+    const response = await axios.get(`${bdUrl}/personnes`);
     const personnes = response.data;
     return personnes;
   } catch (error) {

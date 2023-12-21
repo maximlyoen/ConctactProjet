@@ -4,6 +4,8 @@ const cors = require('cors');
 const { fetchDataForAllPersonnes, fetchDataForEntreprise} = require('./functions');
 const app = express();
 const port = process.env.PORT || 3000;
+require('dotenv').config();
+bdUrl = process.env.BD_URL;
 
 app.use(cors());
 
@@ -15,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/api/entreprises', async (req, res) => {
   try {
     // Make a request to localhost:3001/entreprises
-    const response = await axios.get('http://localhost:3001/entreprises');
+    const response = await axios.get(`${bdUrl}/entreprises`);
 
     // Extract entreprises from the response data
     const entreprises = response.data;
@@ -31,7 +33,7 @@ app.get('/api/entreprises', async (req, res) => {
 app.get('/api/entreprises/:id', async (req, res) => {
   try {
     // Make a request to localhost:3001/entreprises/:id
-    const response = await axios.get(`http://localhost:3001/entreprises/${req.params.id}`);
+    const response = await axios.get(`${bdUrl}/entreprises/${req.params.id}`);
 
     // Extract entreprises from the response data
     const entreprise = response.data;
@@ -58,7 +60,7 @@ app.get('/api/personnes', async (req, res) => {
 app.get('/api/personnes/:id', async (req, res) => {
   try {
     // Make a request to localhost:3001/personnes/:id
-    const response = await axios.get(`http://localhost:3001/personnes/${req.params.id}`);
+    const response = await axios.get(`${bdUrl}/personnes/${req.params.id}`);
     // Extract personnes from the response data
     const personne = response.data;
 
