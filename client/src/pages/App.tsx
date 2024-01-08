@@ -8,8 +8,6 @@ export const App = () => {
   const { token, login } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
     const jwtToken = 'your_jwt_token_here';
@@ -24,10 +22,8 @@ export const App = () => {
         const res = await axios.get<any>(`http://185.212.227.8:3002/api/contacts/1`);  
         const data = res.data;
         setData(data);
-        setLoading(false);
       } catch (error) {
-        setError(null);
-        setLoading(false);
+        console.log(error);
       }
     };
 
