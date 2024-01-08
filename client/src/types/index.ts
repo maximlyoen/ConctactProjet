@@ -11,6 +11,7 @@ export type TPersonne = {
     firstname: string;
     email: string;
     entreprise: TEntreprise;
+    RH: boolean;
     forumStages: string[];
     jobDating: string[];
     taxeApprentissage: string[];
@@ -18,5 +19,4 @@ export type TPersonne = {
     tuteur: string[];
     vacataire: string[];
     matineeInnov: string[];
-    RH: boolean;
   };

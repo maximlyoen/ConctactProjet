@@ -1,9 +1,10 @@
-import { Header } from "../components/Header";
+import { Header, PersonneProfil } from "../components/";
 import { useParams } from "react-router-dom";
 import { TPersonne } from "../types";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 
 export const SinglePersonne = () => {
   const [personne, setPersonne] = useState<TPersonne | null>(null);
@@ -14,7 +15,7 @@ export const SinglePersonne = () => {
   const navigate = useNavigate();
 
   type ApiResponse = {
-    personne: TPersonne;
+    result: TPersonne;
   };
 
   useEffect(() => {
@@ -22,9 +23,10 @@ export const SinglePersonne = () => {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/personnes/${id}`);
-        const data: ApiResponse = await res.json();
-        setPersonne(data.personne);
+        const res = await axios.get<ApiResponse>(`http://localhost:3000/api/personnes/${id}`);
+        const data = res.data;
+        const personne: TPersonne = data.result;
+        setPersonne(personne);
         setLoading(false);
       } catch (error) {
         setError("Error fetching data");
@@ -45,20 +47,10 @@ export const SinglePersonne = () => {
         {error && (
           <div>{error}</div>
         )}
-        {
-            <div className="flex justify-center">
-              {personne && 
-                ( <>
-                    <p className="text-7xl">{personne.name} {personne.firstname}</p>
-                    <p>{personne.email}</p>
-                  </>
-                )
-              }
-              <pre>
-                {JSON.stringify(personne, null, 2)}
-              </pre>
-            </div>
-        }
+          <div className="flex justify-center">
+              {personne && <PersonneProfil personne={personne} />}
+          </div>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate('/personnes')}>Back</button>
       </div>
   );
 };
