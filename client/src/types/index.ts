@@ -1,8 +1,7 @@
 export type TEntreprise = {
-    id: number;
+    ID_ENTREPRISE: number;
     name: string;
-    logo: string;
-    salaries: TPersonne[];
+    image: string;
   };
 
 export type TPersonne = {

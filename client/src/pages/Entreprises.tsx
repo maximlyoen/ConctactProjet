@@ -5,11 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export const Entreprises = () => {
-    interface ApiResponse {
-        entreprises: TEntreprise[];
-      }
 
-    const [response, setResponse] = useState<ApiResponse | null>(null);
+    const [response, setResponse] = useState<TEntreprise[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const { token } = useAuth();
@@ -20,8 +17,8 @@ export const Entreprises = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-              const res = await fetch('http://localhost:3000/api/entreprises');
-              const data : ApiResponse = await res.json();
+              const res = await fetch('http://185.212.227.8:3002/api/entreprises/');
+              const data: TEntreprise[] = await res.json();
               setResponse(data);
               setLoading(false);
             } catch (error) {
