@@ -1,15 +1,74 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const { fetchDataForAllPersonnes, fetchDataForEntreprise} = require('./functions');
+const { fetchDataForAllPersonnes, fetchDataForEntreprise, testQuery, insert} = require('./functions');
+const { generateAccessToken } = require('./authentication');
 const app = express();
 const port = process.env.PORT || 3000;
+
+const jwt = require('jsonwebtoken');
 
 app.use(cors());
 
 // Middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Connection route
+app.post('/login', (req, res) => {
+  
+  const username = req.body.username;
+  const user = { name: username };
+  const acccesToken = generateAccessToken(user);
+  res.json({acccesToken: acccesToken});
+});
+
+app.get('/entreprises/:id', async (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403)
+    })
+    const result = await testQuery(`${req.params.id}`).then((result) => {
+      console.log(result);
+    });
+    //entreprise = {"entreprise" : result[0]};
+    // console.log(result);
+    // return res.json(result);
+  
+});
+
+app.put('/api/contacts/add/', async (req, res) => {
+  try {
+    const {
+      ID_ENTREPRISE,
+      MAIL,
+      MOBILE,
+      NOM,
+      PRENOM,
+      DESCRIPTION,
+      RH
+    } = req.body;
+    
+    // const conn = await pool.getConnection();
+    // const result = await conn.query(
+    sql = 'INSERT INTO CONTACTS (ID_ENTREPRISE, MAIL, MOBILE, NOM, PRENOM, DESCRIPTION, RH) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    insert(sql, [ID_ENTREPRISE, MAIL, MOBILE, NOM, PRENOM, DESCRIPTION, RH])
+      return res.sendStatus(200);
+    // );
+
+    // conn.release();
+
+    // Convertir les valeurs BigInt en chaînes dans la réponse JSON
+    // const insertId = result.insertId.toString();
+    // res.json({ message: 'Contact ajouté avec succès', insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur serveur');
+  }
+});
 
 // Example route for handling /api/entreprises
 app.get('/api/entreprises', async (req, res) => {
