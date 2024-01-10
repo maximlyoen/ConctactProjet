@@ -1,10 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { IoIosContacts } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
-import * as dotenv from 'dotenv';
-
-var jwt = require('jsonwebtoken');
-dotenv.config();
+import toast, { Toaster } from "react-hot-toast";
 
 export const Header = () => {
     const { token, login, logout } = useAuth();
@@ -12,10 +9,9 @@ export const Header = () => {
 
     const handleLogin = () => {
         // Assuming you get the JWT token from some authentication process
-
-        // TODO : Gérer le CAS et récupérer l'utilisateur pour le passer en paramètre dans la fonction login
-        
-        login(); 
+        //const jwtToken = 'your_jwt_token_here';
+        //login(jwtToken);
+        navigate("/login");
     };
 
     const handleLogout = () => {
@@ -24,30 +20,23 @@ export const Header = () => {
     };
 
     const handleEntreprises = () => {
-        jwt.verify(token, process.env.APP_SECRET, (err: any) => {
-            if (err) {
-                navigate("/");
-            }
-            else {
-                navigate("/entreprises");
-            }
-        });
-
-        // if (token) navigate("/entreprises");
-        // if (!token) navigate("/");
+        if (token) {
+            navigate("/entreprises")
+        }
+        if (!token) {
+            navigate("/")
+            toast.error("Veuillez vous connecter pour accéder à cette page");
+        }
     }
 
     const handlePersonnes = () => {
-        jwt.verify(token, process.env.APP_SECRET, (err : any) => {
-            if (err) {
-                navigate("/");
-            }
-            else {
-                navigate("/personnes");
-            }
-        });
-        // if (token) navigate("/personnes");
-        // if (!token) navigate("/");
+        if (token) {
+            navigate("/personnes")
+        }
+        if (!token) {
+            navigate("/")
+            toast.error("Veuillez vous connecter pour accéder à cette page");
+        }
     }
 
     return (
@@ -66,6 +55,7 @@ export const Header = () => {
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded"onClick={handleLogin}>Login</button>
             )}
         </div>
+        <Toaster position="bottom-right"/>
     </header>
     )
 }

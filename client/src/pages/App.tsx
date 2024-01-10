@@ -1,12 +1,14 @@
 import { Header } from "../components";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 
 export const App = () => {
   const { token, login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    const jwtToken = 'your_jwt_token_here';
-    login(jwtToken);
+    navigate("/login");
   }
 
   return (

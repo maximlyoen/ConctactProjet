@@ -20,3 +20,8 @@ export type TPersonne = {
     matineeInnov: string[];
     RH: boolean;
   };
+
+  export type TToken = {
+    token: string;
+    message: string;
+  };
