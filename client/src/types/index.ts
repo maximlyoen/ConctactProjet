@@ -2,14 +2,13 @@ export type TEntreprise = {
     ID_ENTREPRISE: number;
     NOM: string;
     IMAGE: string;
-    salaries: TPersonne[];
   };
 
 export type TPersonne = {
-    id: number;
-    name: string;
-    firstname: string;
-    email: string;
+    ID_CONTACTS: number;
+    NOM: string;
+    PRENOM: string;
+    MAIL: string;
     entreprise: TEntreprise;
     RH: boolean;
     forumStages: string[];

@@ -14,18 +14,14 @@ export const SinglePersonne = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  type ApiResponse = {
-    result: TPersonne;
-  };
-
   useEffect(() => {
     if (!token) navigate("/");
 
     const fetchData = async () => {
       try {
-        const res = await axios.get<ApiResponse>(`http://localhost:3000/api/personnes/${id}`);
-        const data = res.data;
-        const personne: TPersonne = data.result;
+        const res = await axios.get<TPersonne>(`http://185.212.227.8:3002/api/contacts/${id}`);
+        const personne: TPersonne = res.data;
+        console.log(personne)
         setPersonne(personne);
         setLoading(false);
       } catch (error) {

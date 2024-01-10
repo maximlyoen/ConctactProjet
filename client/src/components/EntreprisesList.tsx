@@ -2,7 +2,7 @@ import { EntrepriseCard } from ".";
 import { TEntreprise } from "../types";
 
 interface EntrepriseListProps {
-  entreprises: TEntreprise[];
+    entreprises: TEntreprise[];
 }
 
 export const EntrepriseList: React.FC<EntrepriseListProps> = ({ entreprises }) => {

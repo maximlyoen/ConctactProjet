@@ -5,11 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export const Entreprises = () => {
-    interface ApiResponse {
-        entreprises: TEntreprise[];
-      }
 
-    const [response, setResponse] = useState<ApiResponse | null>(null);
+    const [response, setResponse] = useState<TEntreprise[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const { token } = useAuth();

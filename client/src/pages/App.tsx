@@ -9,7 +9,7 @@ export const App = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
 
-  const handleLogin = () => {
+  const handleLogin = ()   => {
     const jwtToken = 'your_jwt_token_here';
     login(jwtToken);
   }
