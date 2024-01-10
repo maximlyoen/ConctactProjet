@@ -40,8 +40,7 @@ export const Login = () => {
                 });
                 const data = await res.json();
                 login(data.token);
-                console.log(data);
-                if (data != "") {
+                if (data.token != "" && data.token != undefined ) {
                     navigate("/");
                 }
 
