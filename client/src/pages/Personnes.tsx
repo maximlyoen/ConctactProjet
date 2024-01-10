@@ -6,13 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export const Personnes = () => {
-    
       const [response, setResponse] = useState<TPersonne[] | null>(null);
+      const [filteredData, setFilteredData] = useState<TPersonne[] | null>(null);
+      const [taxe, setTaxe] = useState<boolean>(false);
       const [loading, setLoading] = useState<boolean>(true);
       const [error, setError] = useState<string | null>(null);
       const { token } = useAuth();
       const navigate = useNavigate();
-
 
       if (!token) navigate("/");
 
@@ -32,10 +32,30 @@ export const Personnes = () => {
         fetchData();
       }, []);
 
+      useEffect(() => {
+        if (response) {
+          if (taxe) {
+            setFilteredData(response.filter(personne => personne));
+          } else {
+            setFilteredData(response);
+          }
+        }
+      }
+      , [taxe]);
+
     return (
         <div>
         <Header />
-
+        <div>
+        <label>
+          Taxe d'apprentissage
+          <input type="checkbox" checked={taxe} onChange={() => setTaxe(!taxe)} />
+        </label>
+        <label>
+          Show Female
+          <input type="checkbox" onChange={() => console.log("a")} />
+        </label>
+      </div>
         {loading && (
           <div>Loading...</div>
         )}
