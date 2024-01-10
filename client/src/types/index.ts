@@ -8,9 +8,10 @@ export type TPersonne = {
     ID_CONTACTS: number;
     NOM: string;
     PRENOM: string;
+    NOM_ENTREPRISE: string;
     MAIL: string;
     entreprise: TEntreprise;
-    RH: boolean;
+    RH: number;
     forumStages: string[];
     jobDating: string[];
     taxeApprentissage: string[];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import placeholder from "../../public/placeholder.svg";
+import placeholder from "../../public/logo-usines.png";
 
 export const LoadingImage = ({imageUrl}: {imageUrl : string}) => {
     const [imageLoaded, setImageLoaded] = useState(false);
