@@ -16,8 +16,6 @@ const jwt = require('jsonwebtoken');
 
 async function generateAccessToken(email, password) {
     
-    const saltRounds = 10;
-
     try {
         const conn = await pool.getConnection();
         const rows = await conn.query('SELECT * FROM Utilisateurs where email = ?', [email]);
@@ -36,10 +34,10 @@ async function generateAccessToken(email, password) {
                 console.log("Le mot de passe est correct");
                 console.log(match);
                 const user = { email: rows[0].email, role: rows[0].role };
-                return {token : jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '120m' })};
+                return {token : jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '120m' }), message: "Connexion réussie"};
               }else{
                 console.log("Le mot de passe est incorrect");
-                return {message: "Le mot de passe est incorrect"}
+                return {token:"", message: "Le mot de passe est incorrect"}
               }
             
           }
