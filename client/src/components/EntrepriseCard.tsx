@@ -6,7 +6,7 @@ export const EntrepriseCard = ({ entreprise }: { entreprise: TEntreprise }) => {
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-      navigate(`/entreprises/${id}/contacts`);
+      navigate(`/entreprise/${id}`);
   };
 
   return (

@@ -18,9 +18,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return localStorage.getItem('token') || null;
   });
 
-  const login = () => {
-    jwtToken : string | null;
-    
+  const login = (jwtToken: string) => {
     setToken(jwtToken);
     // Save token to localStorage or other persistent storage
     localStorage.setItem('token', jwtToken);
