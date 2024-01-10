@@ -26,7 +26,7 @@ export const SingleEntreprise = () => {
     
         const fetchData = async () => {
           try {
-            const res = await fetch(`http://localhost:3000/api/entreprises/${id}`);
+            const res = await fetch(`http://185.212.227.8:3002/api/entreprises/${id}/contacts`);
             const data: ApiResponse = await res.json();
             setData(data.entreprise);
             setLoading(false);

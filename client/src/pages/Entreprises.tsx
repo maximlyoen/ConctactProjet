@@ -18,37 +18,40 @@ export const Entreprises = () => {
     if (!token) navigate("/");
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-              const res = await fetch('http://localhost:3000/api/entreprises');
-              const data : ApiResponse = await res.json();
-              setResponse(data);
+      const fetchData = async () => {
+          try {
+              const res = await fetch('http://185.212.227.8:3002/api/entreprises');
+              const data: TEntreprise[] = await res.json(); // Suppose que la réponse est un tableau d'entreprises
+              setResponse({ entreprises: data });
               setLoading(false);
-            } catch (error) {
+          } catch (error) {
               setError('Error fetching data');
               setLoading(false);
-            }
-        };
+          }
+      };
+  
+      fetchData();
+  }, []);
 
-    fetchData();
-    }, []);
-
-    return (
-        <div>
+  return (
+    <div>
         <Header />
 
         {loading && (
-          <div>Loading...</div>
+            <div>Loading...</div>
         )}
 
         {error && (
-          <div>Error!</div>
+            <div>Error!</div>
         )}
-        {
-          <div className="flex justify-center">
-            { response && <EntrepriseList entreprises={response} /> }
-          </div>
-        }
-      </div>
-    );
+
+        <div className="flex justify-center">
+            {response && response.entreprises ? (
+                <EntrepriseList entreprises={response.entreprises} />
+            ) : (
+                <div>No data available</div>
+            )}
+        </div>
+    </div>
+);
 }
