@@ -17,7 +17,7 @@ export const SingleEntreprise = () => {
     const handleBack = () => {
         navigate("/entreprises");
     }
-
+    
     useEffect(() => {
         if (!token) navigate("/");
     
