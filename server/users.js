@@ -23,12 +23,7 @@ async function generateAccessToken(email, password) {
         if (rows.length == 0) {
             return {message: "Le compte avec cette adresse mail n'existe pas"}
         }else{
-            // const hashPassword = await bcrypt.hash(password, saltRounds);
-            console.log(rows[0]);
-            // const match = await bcrypt.compare(password, rows[0].pwd);
-            
             const match = await bcrypt.compare(password, rows[0].pwd);
-            
               // result == true
               if (match) {
                 console.log("Le mot de passe est correct");

@@ -2,10 +2,28 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 
-const { avoirTousLestags, avoirTagsContacts, avoirContacts, avoirContact, avoirContactAvecMail, ajouterContact,
-modifierContact, supprimerContact, avoirContacstEntreprises, avoirListeEntreprises, avoirListeEntrepriseParId,
-avoirListeEntrepriseParNom, ajouterEntreprise, modifierEntreprise, supprimerEntreprise, avoirContactsEntreprise,
-avoirTags, avoirTagsId } = require('./functions');
+const functions = require('./functions');
+
+const {
+  avoirTousLestags,
+  avoirTagsContacts,
+  avoirContacts,
+  avoirContact,
+  avoirContactAvecMail,
+  ajouterContact,
+  modifierContact,
+  supprimerContact,
+  avoirContacstEntreprises,
+  avoirListeEntreprises,
+  avoirListeEntrepriseParId,
+  avoirListeEntrepriseParNom,
+  ajouterEntreprise,
+  modifierEntreprise,
+  supprimerEntreprise,
+  avoirContactsEntreprise,
+  avoirTags,
+  avoirTagsId
+} = functions;
 
 const { generateAccessToken, ajouterUtilisateur, supprimerUtilisateur, avoirUtilisateurs } = require('./users');
 const app = express();
@@ -51,8 +69,6 @@ app.put('/api/users/add/', async (req, res) => {
       res.json(r);
     });
   });
-  //const hashPassword = await bcrypt.hash(pwd, await bcrypt.genSalt(10));
-  
 });
 
 // Supprimer un utilisateur
