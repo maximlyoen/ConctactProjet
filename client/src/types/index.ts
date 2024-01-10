@@ -9,7 +9,7 @@ export type TPersonne = {
     NOM: string;
     PRENOM: string;
     MAIL: string;
-    entreprise: TEntreprise;
+    NOM_ENTREPRISE: string;
     RH: boolean;
     forumStages: string[];
     jobDating: string[];
@@ -18,4 +18,11 @@ export type TPersonne = {
     tuteur: string[];
     vacataire: string[];
     matineeInnov: string[];
+  };
+
+export type TTags = {
+    ID_TAGS: number;
+    NOM: string;
+    PRIX_TA?: number;
+    ANNEE?: number;
   };

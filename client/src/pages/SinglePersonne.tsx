@@ -21,7 +21,7 @@ export const SinglePersonne = () => {
       try {
         const res = await axios.get<TPersonne>(`http://185.212.227.8:3002/api/contacts/${id}`);
         const personne: TPersonne = res.data;
-        console.log(personne)
+        // console.log(personne)
         setPersonne(personne);
         setLoading(false);
       } catch (error) {
