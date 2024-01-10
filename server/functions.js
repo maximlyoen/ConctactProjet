@@ -1,4 +1,3 @@
-// const mysql = require('mysql2');
 const mariadb = require('mariadb');
 
 const pool = mariadb.createPool({

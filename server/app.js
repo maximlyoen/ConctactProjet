@@ -1,13 +1,13 @@
 const express = require('express');
-const axios = require('axios');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const { avoirTousLestags, avoirTagsContacts, avoirContacts, avoirContact, avoirContactAvecMail, ajouterContact,
 modifierContact, supprimerContact, avoirContacstEntreprises, avoirListeEntreprises, avoirListeEntrepriseParId,
 avoirListeEntrepriseParNom, ajouterEntreprise, modifierEntreprise, supprimerEntreprise, avoirContactsEntreprise,
-avoirTags, avoirTagsId} = require('./functions');
+avoirTags, avoirTagsId } = require('./functions');
 
-const { generateAccessToken } = require('./authentication');
+const { generateAccessToken, ajouterUtilisateur, supprimerUtilisateur, avoirUtilisateurs } = require('./users');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -19,13 +19,66 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Connection route
-app.post('/login', (req, res) => {
+// Avoir la liste des utilisateurs
+app.get('/api/users', async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+  })
+  await avoirUtilisateurs().then((r) => {
+    res.json(r);
+  });
+});
+
+//Ajouter un utilisateur
+app.put('/api/users/add/', async (req, res) => {
+  const {
+    nom,
+    prenom,
+    email,
+    role,
+    pwd
+  } = req.body;
+
+  const saltRounds = 10;
+
+  bcrypt.hash(pwd, saltRounds).then(async function(hash) {
+    // Store hash in your password DB.
+    await ajouterUtilisateur(nom, prenom, email, role, hash).then((r) => {
+      res.json(r);
+    });
+  });
+  //const hashPassword = await bcrypt.hash(pwd, await bcrypt.genSalt(10));
   
-  const username = req.body.username;
-  const user = { name: username };
-  const acccesToken = generateAccessToken(user);
-  res.json({acccesToken: acccesToken});
+});
+
+// Supprimer un utilisateur
+app.delete('/api/users/del/:id', async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+  })
+  await supprimerUtilisateur(`${req.params.id}`).then((r) => {
+    res.json(r);
+  });
+});
+
+// Route pour se connecter
+app.post('/login', async (req, res) => {
+  
+  const email = req.body.email;
+  const password = req.body.password;
+
+  await generateAccessToken(email, password).then((token) => {
+    res.json(token);
+  });
+
 });
 
 
