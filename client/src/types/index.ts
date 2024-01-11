@@ -10,7 +10,7 @@ export type TPersonne = {
     PRENOM: string;
     NOM_ENTREPRISE: string;
     MAIL: string;
-    RH: boolean;
+    RH: number;
     DESCRIPTION?: string;
     MOBILE?: string;
     forumStages: string[];
