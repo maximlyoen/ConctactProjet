@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 export const Header = () => {
-    const { token, login, logout } = useAuth();
+    const { token, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = () => {
