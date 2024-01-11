@@ -60,7 +60,7 @@ export const Entreprises = () => {
           type="text"
           placeholder="Rechercher par nom..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(typeof e.target.value === 'string' ? e.target.value : '')}
           className="p-2 border border-gray-300 rounded-md"
         />
         <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleCreateEntreprise}>Créer Contact</button>
