@@ -5,6 +5,7 @@ import { TPersonne } from "../types";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 export const SinglePersonne = () => {
@@ -32,7 +33,7 @@ export const SinglePersonne = () => {
     };
 
     fetchData();
-  }, [id, token, navigate]);
+  }, []);
 
   return (
     <div>
@@ -91,9 +92,18 @@ export const SinglePersonne = () => {
       <div className="flex justify-center">
         {personne && <PersonneProfil personne={personne} />}
       </div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate('/personnes')}>
-        Back
-      </button>
+      <div className="flex justify-center">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate('/personnes')}>
+          Back
+        </button>
+        <button className="bg-green-500 hover:bg-green-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate(`/personne/${id}/edit`)}>
+          Modifier
+        </button>
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => toast.error("Compte supprimé (nn je rigole ça marche pas)")}>
+          Supprimer
+        </button>
+      </div>
+      <Toaster position="bottom-right"/>
     </div>
   );
 };

@@ -11,6 +11,8 @@ export type TPersonne = {
     NOM_ENTREPRISE: string;
     MAIL: string;
     RH: boolean;
+    DESCRIPTION?: string;
+    MOBILE?: string;
     forumStages: string[];
     jobDating: string[];
     taxeApprentissage: string[];
