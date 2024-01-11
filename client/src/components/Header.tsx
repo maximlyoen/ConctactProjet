@@ -39,7 +39,7 @@ export const Header = () => {
     }
 
     return (
-        <header className="bg-dark text-white py-8 px-16 h-[60px] flex justify-center items-center">
+        <header className="bg-dark text-white py-8 px-16 h-[60px] flex justify-center items-center space-x-16">
         <NavLink to="/">
             <IoIosContacts className="text-4xl" />
         </NavLink>
