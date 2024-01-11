@@ -1,4 +1,4 @@
-import { Header, SectionEditPersonne } from "../components"
+import { Header } from "../components"
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,6 @@ import axios from "axios";
 export const EditPersonne = () => {
     const [personne, setPersonne] = useState<TPersonne | null>(null);
     const [error, setError] = useState<string | null>(null);
-
-    const [nom, setNom] = useState<string>("");
-    const [prenom, setPrenom] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [mail, setMail] = useState<string>("");
-    const [mobile, setMobile] = useState<string>("");
-    const [entreprise, setEntreprise] = useState<string>("");
-    const [rh, setRh] = useState<number>(0);
 
 
     const [editMode, setEditMode] = useState<boolean>(false);

@@ -24,7 +24,7 @@ export const PersonneProfil = ({ personne } : {personne: TPersonne}) => {
                 <p>{personne.MAIL}</p>
                 <p>{personne.NOM_ENTREPRISE}</p>
             
-                {personne.RH == true ? (
+                {personne.RH === 1 ? (
                     <div className="bg-red-500 text-white font-bold px-4 py-2 m-2 h-10 rounded w-auto">
                         Contact RH
                     </div>): (<p></p>)}
