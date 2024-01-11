@@ -17,3 +17,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+label {
+  background-color: lightgray;
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  margin: 0.5rem;
+}

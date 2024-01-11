@@ -13,13 +13,8 @@ export type TPersonne = {
     RH: number;
     DESCRIPTION?: string;
     MOBILE?: string;
-    forumStages: string[];
-    jobDating: string[];
-    taxeApprentissage: string[];
-    conseilPerf: string;
-    tuteur: string[];
-    vacataire: string[];
-    matineeInnov: string[];
+    ANNEE?: string;
+    TAGS?: string;
   };
 
 export type TTags = {
