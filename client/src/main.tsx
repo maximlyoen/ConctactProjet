@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise, EditPersonne } from './pages'
+import { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise , CreateContact, CreateEntreprise, EditPersonne} from './pages'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -36,6 +36,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/createcontact",
+    element: <CreateContact />,
+  },
+  {
+    path: "/createentreprise",
+    element: <CreateEntreprise />,
   },
   {
     path: "*",

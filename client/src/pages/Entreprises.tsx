@@ -1,6 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { Header, EntrepriseList } from "../components";
 import { TEntreprise } from "../types";
-import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
@@ -40,6 +40,11 @@ export const Entreprises = () => {
     }
   }, [searchTerm, response]);
 
+  const handleCreateEntreprise = () => {
+    // Rediriger vers la page de création d'entreprise
+    navigate("/createentreprise");
+  };
+
   return (
     <div>
       <Header />
@@ -52,6 +57,7 @@ export const Entreprises = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="p-2 border border-gray-300 rounded-md"
         />
+        <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleCreateEntreprise}>Créer Contact</button>
       </div>
 
       {loading && <div>Loading...</div>}

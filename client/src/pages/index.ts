@@ -5,5 +5,7 @@ import { Personnes } from './Personnes';
 import { SinglePersonne } from './SinglePersonne';
 import { SingleEntreprise } from './SingleEntreprise';
 import { EditPersonne } from './EditPersonne';
+import { CreateEntreprise } from './CreateEntreprise';
+import { CreateContact } from './CreateContact';
 
-export { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise, EditPersonne };
+export { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise, CreateEntreprise, CreateContact, EditPersonne };
