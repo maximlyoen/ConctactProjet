@@ -9,8 +9,9 @@ export const Header = () => {
 
     const handleLogin = () => {
         // Assuming you get the JWT token from some authentication process
-        const jwtToken = 'your_jwt_token_here';
-        login(jwtToken);
+        //const jwtToken = 'your_jwt_token_here';
+        //login(jwtToken);
+        navigate("/login");
     };
 
     const handleLogout = () => {

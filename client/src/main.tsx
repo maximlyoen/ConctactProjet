@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise , CreateContact, CreateEntreprise, EditPersonne} from './pages'
+import { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise , CreateContact, CreateEntreprise, EditPersonne, Utilisateurs} from './pages'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
 import { AuthProvider } from './hooks/useAuth';
+import { SingleUtilisateur } from './pages/SingleUtilisateur';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
   {
     path: "/createentreprise",
     element: <CreateEntreprise />,
+  },
+  {
+    path: "/utilisateurs",
+    element: <Utilisateurs />,
+  },
+  {
+    path: "/utilisateurs/:id",
+    element: <SingleUtilisateur />,
   },
   {
     path: "*",

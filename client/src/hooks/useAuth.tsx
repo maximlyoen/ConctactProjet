@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { TToken } from '../types';
 
 interface AuthContextType {
-  token: string | null;
+  token: string | null; // Update the type of the token property to allow for both string and null values
   login: (jwtToken: string) => void;
   logout: () => void;
 }

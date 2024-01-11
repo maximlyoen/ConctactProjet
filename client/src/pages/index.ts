@@ -7,5 +7,7 @@ import { SingleEntreprise } from './SingleEntreprise';
 import { EditPersonne } from './EditPersonne';
 import { CreateEntreprise } from './CreateEntreprise';
 import { CreateContact } from './CreateContact';
+import { Utilisateurs } from './Utilisateurs';
+import { SingleUtilisateur } from './SingleUtilisateur';
 
-export { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise, CreateEntreprise, CreateContact, EditPersonne };
+export { App, Login, Entreprises, Personnes, SinglePersonne, SingleEntreprise, CreateEntreprise, CreateContact, EditPersonne, Utilisateurs, SingleUtilisateur };
