@@ -23,7 +23,7 @@ export const SingleUtilisateur = () => {
   useEffect(() => {
     const fetchUtilisateurs = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/users/${utilisateur.id}`, {
+        const response = await fetch(`http://185.212.227.8:3002/api/users/${utilisateur.id}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ export const SingleUtilisateur = () => {
 
   const handleModifierUtilisateur = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/api/users/mod/${utilisateur.id}`, {
+      const response = await fetch(`http://185.212.227.8:3002/api/users/mod/${utilisateur.id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

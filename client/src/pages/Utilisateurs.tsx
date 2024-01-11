@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "../components";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TUtilisateur } from "../types";
 import { useAuth } from "../hooks/useAuth";
 
@@ -9,12 +9,12 @@ export const Utilisateurs = () => {
 
   const navigate = useNavigate();
   
-  const { token, login } = useAuth();
+  const { token } = useAuth();
 
   if (!token) navigate("/");
 
   const [utilisateurs, setUtilisateurs] = useState<TUtilisateur[]>([]);
-  const [filteredResponse, setFilteredResponse] = useState<TUtilisateur[] | null>([]);
+  const [filteredResponse, setFilteredResponse] = useState<TUtilisateur[]>([]);
 
   const [formData, setFormData] = useState({
     nom:"", prenom:"", email:"", role:"utilisateur", pwd:""
