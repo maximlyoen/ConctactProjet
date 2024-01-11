@@ -45,7 +45,7 @@ async function generateAccessToken(email, password) {
 async function avoirUtilisateurs () {
     try {
       const conn = await pool.getConnection();
-      const rows = await conn.query('SELECT * FROM Utilisateurs');
+      const rows = await conn.query('SELECT * FROM Utilisateur');
       conn.release();
       return rows;
     } catch (err) {
@@ -57,7 +57,7 @@ async function avoirUtilisateurs () {
   async function avoirUtilisateur (id_utilisateur) {
     try {
       const conn = await pool.getConnection();
-      const rows = await conn.query('SELECT * FROM Utilisateurs where id = ?', [id_utilisateur]);
+      const rows = await conn.query('SELECT * FROM Utilisateur where id = ?', [id_utilisateur]);
       conn.release();
       return rows[0];
     } catch (err) {
@@ -67,7 +67,7 @@ async function avoirUtilisateurs () {
   }
   
   async function ajouterUtilisateur (nom, prenom, mail, role, password) {
-    sql = 'INSERT INTO Utilisateurs (nom, prenom, email, role, pwd) VALUES (?, ?, ?, ?, ?)';
+    sql = 'INSERT INTO Utilisateur (nom, prenom, email, role, pwd) VALUES (?, ?, ?, ?, ?)';
     try {
       const conn = await pool.getConnection();
       const result = await conn.query(sql, [nom, prenom, mail, role, password]);
@@ -82,7 +82,7 @@ async function avoirUtilisateurs () {
   async function supprimerUtilisateur (id_utilisateur) {
     try {
       const conn = await pool.getConnection();
-      const result = await conn.query('DELETE FROM Utilisateurs WHERE id=?', [id_utilisateur]);
+      const result = await conn.query('DELETE FROM Utilisateur WHERE id=?', [id_utilisateur]);
       conn.release();
       return { message: 'Utilisateur supprimé' };
     } catch (err) {
@@ -92,7 +92,7 @@ async function avoirUtilisateurs () {
   }
 
   async function modifierUtilisateur (email, role, pwd, id_utilisateur) {
-    sql = 'UPDATE Utilisateurs SET email=?, role=?, pwd=? WHERE id=?';
+    sql = 'UPDATE Utilisateur SET email=?, role=?, pwd=? WHERE id=?';
     try {
       const conn = await pool.getConnection();
       const result = await conn.query(
