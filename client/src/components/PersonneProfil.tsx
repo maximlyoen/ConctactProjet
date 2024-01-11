@@ -1,14 +1,22 @@
 import { TPersonne } from "../types"
 import { useState, useEffect } from "react"
+import { useAuth } from "../hooks/useAuth";
 
 export const PersonneProfil = ({ personne } : {personne: TPersonne}) => {
 
     const [tags, setTags] = useState<any | null>(null);
 
+    const { token} = useAuth();
+
     useEffect(() => {
         const fetchData = async () => {
             let id = personne.ID_CONTACTS;
-            const pers = await fetch(`http://185.212.227.8:3002/api/contacts/${id}/tags`);
+            const pers = await fetch(`http://185.212.227.8:3002/api/contacts/${id}/tags`, { 
+                method: "get",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const tags = await pers.json();
             setTags(tags);
         }

@@ -18,7 +18,13 @@ export const Entreprises = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://185.212.227.8:3002/api/entreprises/");
+        const res = await fetch("http://185.212.227.8:3002/api/entreprises/", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            },
+          });
         const data: TEntreprise[] = await res.json();
         setResponse(data);
         setLoading(false);

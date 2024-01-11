@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Header } from "../components";
 import { useNavigate } from "react-router-dom";
 import { TEntreprise } from "../types";
+import { useAuth } from "../hooks/useAuth";
 
 export const CreateContact = () => {
   const navigate = useNavigate();
@@ -19,11 +20,19 @@ export const CreateContact = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const {token} = useAuth();
 
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await fetch("http://185.212.227.8:3002/api/entreprises");
+        const response = await fetch("http://185.212.227.8:3002/api/entreprises", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        
+        })
         const data: TEntreprise[] = await response.json();
         setEntreprises(data);
       } catch (error) {
@@ -53,6 +62,7 @@ export const CreateContact = () => {
         method: "put",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });

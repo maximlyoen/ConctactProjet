@@ -30,7 +30,14 @@ export const EditPersonne = () => {
     
         const fetchData = async () => {
           try {
-            const res = await axios.get<TPersonne>(`http://185.212.227.8:3002/api/contacts/${id}`);
+            const res = await axios.get<TPersonne>(`http://185.212.227.8:3002/api/contacts/${id}`,
+            {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                    },
+            });
             const personne: TPersonne = res.data;
             // console.log(personne)
             setPersonne(personne);

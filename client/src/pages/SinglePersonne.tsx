@@ -19,7 +19,13 @@ export const SinglePersonne = () => {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://185.212.227.8:3002/api/contacts/${id}`);
+        const res = await fetch(`http://185.212.227.8:3002/api/contacts/${id}`, {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            },
+          });
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
