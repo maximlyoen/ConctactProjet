@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Header, EntrepriseList } from "../components";
 import { TEntreprise } from "../types";
 import { useNavigate } from "react-router-dom";

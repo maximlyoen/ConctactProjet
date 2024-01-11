@@ -37,6 +37,7 @@ export const Personnes = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      filteredData && console.log(filteredData);
     }
   };
 
