@@ -22,7 +22,8 @@ const {
   supprimerEntreprise,
   avoirContactsEntreprise,
   avoirTags,
-  avoirTagsId
+  avoirTagsId,
+  insererCSVligne
 } = functions;
 
 const { generateAccessToken, ajouterUtilisateur, supprimerUtilisateur, avoirUtilisateurs, modifierUtilisateur, avoirUtilisateur } = require('./users');
@@ -423,6 +424,38 @@ app.get('/api/tags/:id',   async (req, res) => {
   })
 
   await avoirTagsId(`${req.params.id}`).then((r) => {
+    res.json(r);
+  });
+});
+
+app.put('/api/insererCSVligne',   async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+  })
+
+  const info = req.body; 
+  // {
+  //   nom,
+  //   prenom,
+  //   entreprise,
+  //   email,
+  //   mobile, 
+  //   description,
+  ///   forumStage,
+  ///   jobDating,
+  //   TA,
+  ///   ConseilPerf,
+  ///   Tuteur,
+  ///   Vacataire,
+  ///   MatineeInnov,
+  //   RH
+  // }
+
+  await insererCSVligne(info).then((r) => {
     res.json(r);
   });
 });

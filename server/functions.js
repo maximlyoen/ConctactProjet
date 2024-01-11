@@ -411,7 +411,125 @@ async function avoirTagsId (id_tag) {
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+async function insererCSVligne (data) {
+  try {
 
+    const conn = await pool.getConnection();
+
+    const idEntreprise = await conn.query('SELECT ID_ENTREPRISE FROM ENTREPRISE WHERE NOM = ?', [data.entreprise]);
+    rh = data.RH == "x" ? 0 : 1;
+    tel = data.mobile == "x" ? null : data.mobile;
+    
+    const queryContact = "INSERT INTO CONTACTS ( ID_ENTREPRISE, MAIL, MOBILE, NOM, PRENOM, DESCRIPTION, RH) VALUES (?,?,?,?,?,?,?);"
+    const q = await conn.query(queryContact, [idEntreprise[0], data.email, tel, data.nom, data.prenom, data.description, rh]);
+
+    const idContact = await conn.query('SELECT ID_CONTACTS FROM CONTACTS WHERE MAIL = ?', [data.email]);
+
+    const annee_forumStages = data.forumStage.split(',');
+    id_annee = ""
+    for (let i = 0; i < annee_forumStages.length; i++) {
+      if (annee_forumStages[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_forumStages[i]]);
+      }
+
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);
+      
+    }
+
+    const annee_jobDating = data.jobDating.split(',');
+    for (let i = 0; i < annee_jobDating.length; i++) {
+      if (annee_jobDating[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_jobDating[i]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["JOB DATING"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);      
+    }
+
+
+    const annee_conseilPerf = data.ConseilPerf.split(',');
+    id_annee = ""
+    for (let i = 0; i < annee_conseilPerf.length; i++) {
+      if (annee_jobDating[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_conseilPerf[i]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["CONSEIL PERF"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);      
+    }
+
+    const annee_tuteur = data.Tuteur.split(',');
+    id_annee = ""
+    for (let i = 0; i < annee_tuteur.length; i++) {
+      if (annee_tuteur[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_tuteur[i]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["TUTEUR"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);      
+    }
+
+    const annee_vacataire = data.Vacataire.split(',');
+    for (let i = 0; i < annee_vacataire.length; i++) {
+      if (annee_vacataire[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_vacataire[i]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["VACATAIRE"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);      
+    }
+
+    const annee_matineeInnov = data.Vacataire.split(',');
+    id_annee = ""
+    for (let i = 0; i < annee_matineeInnov.length; i++) {
+      if (annee_matineeInnov[i] == "x") {
+        id_annee = 0;
+      } else {
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_matineeInnov[i]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["MATINÉE INNOV"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], null]);      
+    }
+
+    const annee_TaxeApprentissage = data.Vacataire.split(',');
+    id_annee = ""
+    for (let i = 0; i < annee_matineeInnov.length; i++) {
+      annee_taxe = []
+      if (annee_matineeInnov[i] == "x") {
+        id_annee = 0;
+      } else {
+        annee_taxe = annee_TaxeApprentissage[i].split(' ');
+        id_annee = await conn.query('SELECT ID_ANNEE FROM ANNEE WHERE ANNEE = ?', [annee_taxe[0]]);
+      }
+      id_tag = await conn.query('SELECT ID_TAG FROM TAG WHERE NOM_TAG = ?', ["TAXE APPPRENTISSAGE"]);
+      const queryTag = "INSERT INTO PARTICIPE ( ID_CONTACTS, ID_TAG, ID_ANNEE, PRIX_TA)) VALUES (?,?,?,?);"
+      await conn.query(queryTag, [idContact[0], id_tag[0], id_annee[0], annee_taxe[1]]);      
+    }
+
+    conn.release();
+
+    if (rows.length > 0) {
+      return rows; // Si un tag est trouvé, renvoyer le premier du tableau
+    } else {
+      res.status(404).json({ message: 'Tag non trouvé' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erreur serveur');
+  }
+};
 
 
 // Export the function
@@ -433,5 +551,6 @@ module.exports = {
   supprimerEntreprise,
   avoirContactsEntreprise,
   avoirTags,
-  avoirTagsId
+  avoirTagsId,
+  insererCSVligne
 }
