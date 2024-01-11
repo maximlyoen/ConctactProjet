@@ -24,7 +24,6 @@ export const SingleUtilisateur = () => {
     const fetchUtilisateurs = async () => {
       try {
         const response = await fetch(`http://185.212.227.8:3002/api/users/${utilisateur.id}`, {
-            method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
                 },

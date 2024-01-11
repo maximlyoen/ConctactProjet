@@ -298,7 +298,7 @@ app.get('/api/entreprises', async (req, res) => {
     if (err) return res.sendStatus(403)
   })
   await avoirListeEntreprises().then((r) => {
-    res.json({r});
+    res.json(r);
   });
 });
 

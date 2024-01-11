@@ -12,7 +12,6 @@ export const PersonneProfil = ({ personne } : {personne: TPersonne}) => {
         const fetchData = async () => {
             let id = personne.ID_CONTACTS;
             const pers = await fetch(`http://185.212.227.8:3002/api/contacts/${id}/tags`, { 
-                method: "get",
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

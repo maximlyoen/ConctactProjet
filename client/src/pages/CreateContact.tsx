@@ -26,7 +26,6 @@ export const CreateContact = () => {
     const fetchEntreprises = async () => {
       try {
         const response = await fetch("http://185.212.227.8:3002/api/entreprises", {
-          method: "get",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -59,7 +58,7 @@ export const CreateContact = () => {
   const handleAddContact = async () => {
     try {
       const response = await fetch("http://185.212.227.8:3002/api/contacts/add", {
-        method: "put",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

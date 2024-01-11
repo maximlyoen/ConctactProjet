@@ -26,7 +26,6 @@ export const Utilisateurs = () => {
     const fetchUtilisateurs = async () => {
       try {
         const response = await fetch("http://185.212.227.8:3002/api/users/", {
-            method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
                 },
@@ -63,7 +62,7 @@ export const Utilisateurs = () => {
   const handleAjouterUtilisateur = async () => {
     try {
       const response = await fetch("http://185.212.227.8:3002/api/users/add", {
-        method: "put",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -83,7 +82,7 @@ export const Utilisateurs = () => {
   const supprimerUtilisateur = async (id : number) => {
     try {
         const response = await fetch(`http://185.212.227.8:3002/api/users/del/${id}`, {
-          method: "delete",
+          method: "DELETE",
           headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,

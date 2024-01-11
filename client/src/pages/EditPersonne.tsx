@@ -9,8 +9,6 @@ import axios from "axios";
 export const EditPersonne = () => {
     const [personne, setPersonne] = useState<TPersonne | null>(null);
     const [error, setError] = useState<string | null>(null);
-
-
     const [editMode, setEditMode] = useState<boolean>(false);
     const { token } = useAuth();
     const { id } = useParams();
@@ -32,7 +30,6 @@ export const EditPersonne = () => {
           try {
             const res = await axios.get<TPersonne>(`http://185.212.227.8:3002/api/contacts/${id}`,
             {
-                method: "get",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,

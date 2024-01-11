@@ -13,13 +13,11 @@ export const Entreprises = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
 
-  if (!token) navigate("/");
-
   useEffect(() => {
+    if (!token) navigate("/");
     const fetchData = async () => {
       try {
         const res = await fetch("http://185.212.227.8:3002/api/entreprises/", {
-          method: "get",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -47,7 +45,6 @@ export const Entreprises = () => {
   }, [searchTerm, response]);
 
   const handleCreateEntreprise = () => {
-    // Rediriger vers la page de création d'entreprise
     navigate("/createentreprise");
   };
 

@@ -45,7 +45,6 @@ export const Personnes = () => {
     const fetchData = async () => {
       try {
         const res = await fetch("http://185.212.227.8:3002/api/contacts/", {
-          method: "get",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

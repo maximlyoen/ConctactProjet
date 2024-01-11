@@ -24,7 +24,6 @@ export const SingleEntreprise = () => {
         const fetchData = async () => {
           try {
             const entr = await fetch(`http://185.212.227.8:3002/api/entreprises/${id}`, {
-                method: "get",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -33,7 +32,6 @@ export const SingleEntreprise = () => {
             const entreprise: TEntreprise = await entr.json();
             setEntreprise(entreprise);
             const pers = await fetch(`http://185.212.227.8:3002/api/entreprises/${id}/contacts`, {
-                method: "get",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
