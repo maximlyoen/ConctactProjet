@@ -17,7 +17,7 @@ async function generateAccessToken(email, password) {
     
     try {
         const conn = await pool.getConnection();
-        const rows = await conn.query('SELECT * FROM Utilisateurs where email = ?', [email]);
+        const rows = await conn.query('SELECT * FROM Utilisateur where email = ?', [email]);
         conn.release();
         if (rows.length == 0) {
             return {message: "Le compte avec cette adresse mail n'existe pas"}
