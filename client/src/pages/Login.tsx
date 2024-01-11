@@ -1,19 +1,13 @@
 import { Header } from "../components"
 import { useState } from "react";  
 import { useAuth } from "../hooks/useAuth";
-
-
 import { useNavigate } from "react-router-dom";
 
-
 export const Login = () => {
-
-    const { token, login } = useAuth();
-
+    const { login } = useAuth();
     const [email, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
 
     const handleUserEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value);
@@ -23,14 +17,10 @@ export const Login = () => {
         setPassword(event.target.value);
     };
 
-    
-
     const handleLogin = () => {
-
-
         const fetchToken = async () => {
             try {
-            const res = await fetch('http://127.0.0.1:3000/login',{
+            const res = await fetch('http://185.212.227.8:3002/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
