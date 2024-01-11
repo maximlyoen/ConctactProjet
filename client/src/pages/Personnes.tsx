@@ -75,6 +75,9 @@ export const Personnes = () => {
     }
   } , [taxe]);
   
+  const handlePersonnes = () => {
+    navigate("/createcontact");
+  }
 
   return (
     <div>
