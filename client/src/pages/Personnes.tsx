@@ -8,6 +8,8 @@ import { useAuth } from "../hooks/useAuth";
 export const Personnes = () => {
   const [response, setResponse] = useState<TPersonne[] | null>(null);
   const [filteredResponse, setFilteredResponse] = useState<TPersonne[] | null>(null);
+  const  [taxe, setTaxe] = useState<boolean>(false);
+  const [filteredData, setFilteredData] = useState<TPersonne[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -15,6 +17,28 @@ export const Personnes = () => {
   const navigate = useNavigate();
 
   if (!token) navigate("/");
+
+  const downloadCSV = () => {
+    if (filteredResponse) {
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        "Nom,Prénom,Email\n" +
+        filteredResponse
+          .map(
+            (personne) =>
+              `${personne.NOM},${personne.PRENOM},${personne.MAIL}`
+          )
+          .join("\n");
+
+      const encodedURI = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedURI);
+      link.setAttribute("download", "personnes.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,31 +65,37 @@ export const Personnes = () => {
     }
   }, [searchTerm, response]);
 
-  const downloadCSV = () => {
-    if (filteredResponse) {
-      const csvContent =
-        "data:text/csv;charset=utf-8," +
-        "Nom,Prénom,Email\n" +
-        filteredResponse
-          .map(
-            (personne) =>
-              `${personne.NOM},${personne.PRENOM},${personne.MAIL}`
-          )
-          .join("\n");
-
-      const encodedURI = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedURI);
-      link.setAttribute("download", "personnes.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  useEffect(() => {
+    if (response) {
+      if (taxe) {
+        setFilteredData(response.filter(personne => personne));
+      } else {
+        setFilteredData(response);
+      }
     }
-  };
+  } , [taxe]);
+
+  const handlePersonnes = () => {
+    if (token) {
+        navigate("/createcontact")
+    }
+}
+  
 
   return (
     <div>
       <Header />
+
+      <div>
+        <label>
+          Taxe d'apprentissage
+          <input type="checkbox" checked={taxe} onChange={() => setTaxe(!taxe)} />
+        </label>
+        <label>
+          Show Female
+          <input type="checkbox" onChange={() => console.log("a")} />
+        </label>
+      </div>
 
       <div className="flex justify-end p-4">
         <input
@@ -81,7 +111,9 @@ export const Personnes = () => {
         >
           Télécharger CSV
         </button>
+        <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handlePersonnes}>Créer Contact</button>
       </div>
+
 
       {loading && <div>Loading...</div>}
 
