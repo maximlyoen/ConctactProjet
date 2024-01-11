@@ -21,6 +21,15 @@ export type TPersonne = {
     RH: boolean;
   };
 
+  export type TUtilisateur = {
+    id: number;
+    nom: string;
+    prenom: string;
+    email: string;
+    role: string;
+    pwd: string;
+  };
+
   export type TToken = {
     token: string;
     message: string;

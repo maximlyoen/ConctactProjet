@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { App, Login, Entreprises, Personnes, SinglePersonne } from './pages'
+import { App, Login, Entreprises, Personnes, SinglePersonne, Utilisateurs } from './pages'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
 import { AuthProvider } from './hooks/useAuth';
+import { SingleUtilisateur } from './pages/SingleUtilisateur';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/utilisateurs",
+    element: <Utilisateurs />,
+  },
+  {
+    path: "/utilisateurs/:id",
+    element: <SingleUtilisateur />,
   },
   {
     path: "*",

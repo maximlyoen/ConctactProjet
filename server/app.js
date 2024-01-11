@@ -25,7 +25,7 @@ const {
   avoirTagsId
 } = functions;
 
-const { generateAccessToken, ajouterUtilisateur, supprimerUtilisateur, avoirUtilisateurs } = require('./users');
+const { generateAccessToken, ajouterUtilisateur, supprimerUtilisateur, avoirUtilisateurs, modifierUtilisateur, avoirUtilisateur } = require('./users');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -51,6 +51,20 @@ app.get('/api/users', async (req, res) => {
   });
 });
 
+// Avoir un utilisateur par son ID
+app.get('/api/users/:id', async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+  })
+  await avoirUtilisateur(`${req.params.id}`).then((r) => {
+    res.json(r);
+  });
+});
+
 //Ajouter un utilisateur
 app.put('/api/users/add/', async (req, res) => {
   const {
@@ -65,6 +79,13 @@ app.put('/api/users/add/', async (req, res) => {
 
   bcrypt.hash(pwd, saltRounds).then(async function(hash) {
     // Store hash in your password DB.
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403)
+    })
     await ajouterUtilisateur(nom, prenom, email, role, hash).then((r) => {
       res.json(r);
     });
@@ -83,6 +104,34 @@ app.delete('/api/users/del/:id', async (req, res) => {
   await supprimerUtilisateur(`${req.params.id}`).then((r) => {
     res.json(r);
   });
+});
+
+// Modifier un utilisateur
+app.patch('/api/users/mod/:id/', async (req, res) => {
+  
+
+  const {
+    email,
+    role,
+    pwd,
+  } = req.body;
+
+  const saltRounds = 10;
+
+  bcrypt.hash(pwd, saltRounds).then(async function(hash) {
+    // Store hash in your password DB.
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403)
+    })
+    await modifierUtilisateur(email, role, hash, `${req.params.id}`).then((r) => {
+      res.json(r);
+    });
+  });
+
 });
 
 // Route pour se connecter
