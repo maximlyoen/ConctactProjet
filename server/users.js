@@ -4,12 +4,11 @@ const bcrypt = require('bcrypt');
 const mariadb = require('mariadb');
 
 const pool = mariadb.createPool({
-  host: 'localhost',
-  user: 'user',
-  password: 'iut',
+  host: '185.212.227.8',
+  user: 'root',
+  password: 'admin',
   database: 'ContactIut',
-  port: '6034',
-  allowPublicKeyRetrieval: true,
+  connectionLimit: 5000,
 });
 
 const jwt = require('jsonwebtoken');
@@ -60,7 +59,7 @@ async function avoirUtilisateurs () {
       const conn = await pool.getConnection();
       const rows = await conn.query('SELECT * FROM Utilisateurs where id = ?', [id_utilisateur]);
       conn.release();
-      return rows;
+      return rows[0];
     } catch (err) {
       console.error(err);
       throw err;

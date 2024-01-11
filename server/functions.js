@@ -1,12 +1,11 @@
 const mariadb = require('mariadb');
 
 const pool = mariadb.createPool({
-  host: 'localhost',
-  user: 'user',
-  password: 'iut',
+  host: '185.212.227.8',
+  user: 'root',
+  password: 'admin',
   database: 'ContactIut',
-  port: '6034',
-  allowPublicKeyRetrieval: true,
+  connectionLimit: 5000,
 });
 
 

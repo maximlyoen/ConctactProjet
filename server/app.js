@@ -429,5 +429,5 @@ app.get('/api/tags/:id',   async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is listening on http://localhost:${port}`);
+  console.log(`Server is listening on http://185.212.227.8:${port}`);
 });

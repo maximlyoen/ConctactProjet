@@ -25,7 +25,7 @@ export const Utilisateurs = () => {
   useEffect(() => {
     const fetchUtilisateurs = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:3000/api/users/", {
+        const response = await fetch("http://185.212.227.8:3002/api/users/", {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ export const Utilisateurs = () => {
 
   const handleAjouterUtilisateur = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:3000/api/users/add", {
+      const response = await fetch("http://185.212.227.8:3002/api/users/add", {
         method: "put",
         headers: {
             "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export const Utilisateurs = () => {
 
   const supprimerUtilisateur = async (id : number) => {
     try {
-        const response = await fetch(`http://127.0.0.1:3000/api/users/del/${id}`, {
+        const response = await fetch(`http://185.212.227.8:3002/api/users/del/${id}`, {
           method: "delete",
           headers: {
               "Content-Type": "application/json",
