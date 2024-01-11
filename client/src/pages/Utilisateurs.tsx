@@ -6,16 +6,21 @@ import { useAuth } from "../hooks/useAuth";
 
 
 export const Utilisateurs = () => {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  
   const { token, login } = useAuth();
 
+  if (!token) navigate("/");
+
   const [utilisateurs, setUtilisateurs] = useState<TUtilisateur[]>([]);
+  const [filteredResponse, setFilteredResponse] = useState<TUtilisateur[] | null>([]);
+
   const [formData, setFormData] = useState({
     nom:"", prenom:"", email:"", role:"utilisateur", pwd:""
   });
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchUtilisateurs = async () => {
@@ -35,6 +40,15 @@ export const Utilisateurs = () => {
 
     fetchUtilisateurs();
   }, []);
+
+  useEffect(() => {
+    if (utilisateurs) {
+      const filteredData = utilisateurs.filter((utilisateur) =>
+        utilisateur.nom.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredResponse(filteredData);
+    }
+  }, [searchTerm, utilisateurs]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -95,12 +109,18 @@ export const Utilisateurs = () => {
               Ajouter un utilisateur
           </button>
         </a>
-        <input type="search" name="filtreUtilisateurs" id="filtreUtilisateurs"  className="rounded-md m-5 h-8 p-3 bg-slate-100 border border-blue-500" placeholder="rechercher"/>
+        <input
+          type="text"
+          placeholder="Rechercher par nom..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="rounded-md m-5 h-8 p-3 bg-slate-100 border border-blue-500"
+        />
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Liste des utilisateurs</h2>
         { 
-            utilisateurs.map((utilisateur, key) => (
+            filteredResponse.map((utilisateur, key) => (
                 <div key={key} className="mb-4 p-4 border border-gray-300 rounded-md">
                   <div className="flex justify-between">
                     <div className="flex justify-between">
