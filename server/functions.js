@@ -317,6 +317,7 @@ async function supprimerEntreprise (id_entreprise) {
   try {
 
     const conn = await pool.getConnection();
+    const result2 = await conn.query('UPDATE CONTACTS SET CONTACTS.ID_ENTREPRISE = null WHERE CONTACTS.ID_ENTREPRISE = ?', [id_entreprise]);
     const result = await conn.query('DELETE FROM ENTREPRISE WHERE ID_ENTREPRISE=?', [id_entreprise]);
 
     conn.release();
