@@ -12,7 +12,7 @@ export const SingleUtilisateur = () => {
   const userid = location.pathname.split("/")[2];
   const userId = parseInt(userid);
 
-  const { token, login } = useAuth();
+  const { token } = useAuth();
 
   const [utilisateur, setUtilisateur] = useState<TUtilisateur>({id: userId, nom:"", prenom:"", email:"",  pwd:"", role:"utilisateur"});
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ export const SingleUtilisateur = () => {
                 },
             });
         const data: TUtilisateur = await response.json();
-        setUtilisateur(data[0] as TUtilisateur);
+        setUtilisateur(data as TUtilisateur);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
