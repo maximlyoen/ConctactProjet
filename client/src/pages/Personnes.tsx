@@ -9,7 +9,7 @@ export const Personnes = () => {
   const [response, setResponse] = useState<TPersonne[] | null>(null);
   const [filteredResponse, setFilteredResponse] = useState<TPersonne[] | null>(null);
   const [selectedOption, setSelectedOption] = useState<string>("none");
-  const [selectedOption2, setSelectedOption2] = useState<string>("Any");
+  const [selectedOption2, setSelectedOption2] = useState<string>("any");
   const [filteredData, setFilteredData] = useState<TPersonne[] | null>(null);
   const [filteredData2, setFilteredData2] = useState<TPersonne[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
