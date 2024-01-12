@@ -51,12 +51,12 @@ export const SinglePersonne = () => {
       </div>
       <div className="flex justify-center">
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate('/personnes')}>
-          Back
+          Retour
         </button>
         <button className="bg-green-500 hover:bg-green-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => navigate(`/personne/${id}/edit`)}>
           Modifier
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => toast.error("Compte supprimé (nn je rigole ça marche pas)")}>
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 py-2 m-2 rounded" onClick={() => toast.error("Compte supprimé")}>
           Supprimer
         </button>
       </div>

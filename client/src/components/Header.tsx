@@ -8,9 +8,6 @@ export const Header = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        // Assuming you get the JWT token from some authentication process
-        //const jwtToken = 'your_jwt_token_here';
-        //login(jwtToken);
         navigate("/login");
     };
 
@@ -39,13 +36,25 @@ export const Header = () => {
         }
     }
 
+    const handleUtilisateurs = () => {
+        if (token) {
+            navigate("/utilisateurs")
+        }
+        if (!token) {
+            navigate("/")
+            toast.error("Veuillez vous connecter pour accéder à cette page");
+        }
+    }
+
     return (
-        <header className="bg-dark text-white py-8 px-16 h-[60px] flex justify-center items-center space-x-16">
+        <header className="bg-dark text-white py-8 px-16 h-[60px] flex justify-center items-center">
         <NavLink to="/">
             <IoIosContacts className="text-4xl" />
         </NavLink>
         <button className="font-bold text-navlink hover:text-white px-1" onClick={handleEntreprises}>Entreprises</button>
         <button className="font-bold text-navlink hover:text-white px-1" onClick={handlePersonnes}>Personnes</button>
+        <button className="font-bold text-navlink hover:text-white px-1" onClick={handleUtilisateurs}>Utilisateurs</button>
+
         <div>
             {token ? 
             (
