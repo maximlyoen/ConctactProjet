@@ -437,7 +437,7 @@ app.put('/api/insererCSVligne',   async (req, res) => {
     if (err) return res.sendStatus(403)
   })
 
-  const info = req.body; 
+  const info = req.body;
   // {
   //   nom,
   //   prenom,

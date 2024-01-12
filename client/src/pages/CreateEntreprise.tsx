@@ -21,10 +21,9 @@ export const CreateEntreprise = () => {
   };
 
 
-
   const handleAddEntreprise = async () => {
     try {
-      const response = await fetch("http://185.212.227.8:3002/api/entreprise/add", {
+      const response = await fetch("http://185.212.227.8:3002/api/entreprises/add", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +35,7 @@ export const CreateEntreprise = () => {
       if (response.ok) {
         setSuccessMessage("Entreprise ajouté avec succès!");
         // Rediriger vers la page des contacts après l'ajout
-        navigate("/personnes");
+        navigate("/entreprises");
       } else {
         console.error("Erreur lors de l'ajout du contact");
       }
@@ -61,12 +60,11 @@ export const CreateEntreprise = () => {
               className="mt-1 p-2 border border-gray-300 rounded-md w-full bg-white text-gray-800"
             />
           </div>
-          {/* Ajoutez d'autres champs ici en fonction de vos besoins */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Image en ligne .csv:</label>
             <input
               type="text"
-              name="Code"
+              name="IMAGE"
               value={formData.IMAGE}
               onChange={handleChange}
               className="mt-1 p-2 border border-gray-300 rounded-md w-full bg-white text-gray-800"
@@ -77,7 +75,7 @@ export const CreateEntreprise = () => {
             onClick={handleAddEntreprise}
             className="col-span-2 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Ajouter Contact
+            Ajouter Entreprise
           </button>
           {successMessage && (
             <div className="col-span-2 mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded">
