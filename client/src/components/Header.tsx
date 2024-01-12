@@ -12,7 +12,7 @@ export const Header = () => {
     };
 
     const handleLogout = () => {
-        window.location.reload();
+        // window.location.reload();
         logout();
     };
 

@@ -21,10 +21,10 @@ export const Login = () => {
         const fetchToken = async () => {
             try {
             const res = await fetch('http://185.212.227.8:3002/login',{
-                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                method: 'POST',
                 body: JSON.stringify({ "email":email, "password":password }),
             
                 });
