@@ -3,7 +3,7 @@ import { Header } from "../components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-export const CreateContact = () => {
+export const CreateEntreprise = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
