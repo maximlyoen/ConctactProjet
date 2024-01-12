@@ -20,10 +20,8 @@ export const EditPersonne = () => {
 
     const [personne, setPersonne] = useState<TPersonne>();
     const [entreprises, setEntreprises] = useState<TEntreprise[]>([]);
-    const [idEntreprise, setIdEntreprise] = useState<number>();
 
     const [error, setError] = useState<string | null>(null);
-    const [editMode, setEditMode] = useState<boolean>(false);
     const [searchTerm, setSearchTerm] = useState("");
     const { token } = useAuth();
     const { id } = useParams();
@@ -42,6 +40,7 @@ export const EditPersonne = () => {
         DESCRIPTION: "",
         RH: 0,
     });
+    error
 
     useEffect(() => {
         if (!id) {

@@ -12,7 +12,21 @@ export const PersonneCard = ({ personne }: { personne: TPersonne }) => {
         if (!token) navigate("/");
     }
 
-    const isRhEmployee = personne.RH === 1; // Vérifiez si rh est égal à 1
+    const isRhEmployee = personne.RH === 1;
+
+    // Fonction pour anonymiser le nom et prénom
+    const anonymizeName = (name: string): string => {
+        // Ici, vous pouvez implémenter la logique de remplacement par une valeur anonyme
+        name = "Anonyme name";
+        return name;
+    };
+
+    // Fonction pour anonymiser le nom de l'entreprise
+    const anonymizeCompanyName = (companyName: string): string => {
+        // Ici, vous pouvez implémenter la logique de remplacement par une valeur anonyme
+        companyName = "Entreprise Anonyme";
+        return companyName;
+    };
 
     return (
         <div
@@ -22,9 +36,9 @@ export const PersonneCard = ({ personne }: { personne: TPersonne }) => {
             {isRhEmployee && (
                 <div className="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full"></div>
             )}
-            <p>{personne.NOM}</p>
-            <p>{personne.PRENOM}</p>
-            <p>{personne.NOM_ENTREPRISE}</p>
+            <p>{anonymizeName(personne.NOM)}</p>
+            <p>{anonymizeName(personne.PRENOM)}</p>
+            <p>{anonymizeCompanyName(personne.NOM_ENTREPRISE)}</p>
         </div>
     );
 };

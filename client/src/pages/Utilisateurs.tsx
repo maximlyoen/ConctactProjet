@@ -4,11 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { TUtilisateur } from "../types";
 import { useAuth } from "../hooks/useAuth";
 
-
 export const Utilisateurs = () => {
-
   const navigate = useNavigate();
-  
   const { token } = useAuth();
 
   if (!token) navigate("/");
@@ -17,7 +14,11 @@ export const Utilisateurs = () => {
   const [filteredResponse, setFilteredResponse] = useState<TUtilisateur[]>([]);
 
   const [formData, setFormData] = useState({
-    nom:"", prenom:"", email:"", role:"utilisateur", pwd:""
+    nom: "",
+    prenom: "",
+    email: "",
+    role: "utilisateur",
+    pwd: "",
   });
 
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -26,10 +27,10 @@ export const Utilisateurs = () => {
     const fetchUtilisateurs = async () => {
       try {
         const response = await fetch("http://185.212.227.8:3002/api/users/", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                },
-            });
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data: TUtilisateur[] = await response.json();
         setUtilisateurs(data);
       } catch (error) {
@@ -38,7 +39,7 @@ export const Utilisateurs = () => {
     };
 
     fetchUtilisateurs();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (utilisateurs) {
@@ -55,17 +56,30 @@ export const Utilisateurs = () => {
   };
 
   const handleToggleAdmin = () => {
-    setFormData({ ...formData, role: formData.role === "utilisateur" ? "admin": "utilisateur" });
+    setFormData({ ...formData, role: formData.role === "utilisateur" ? "admin" : "utilisateur" });
   };
 
+  // Fonction pour anonymiser le nom et prénom
+  const anonymizeName = (name: string): string => {
+    // Ici, vous pouvez implémenter la logique de remplacement par une valeur anonyme
+    name = "name Anonyme";
+    return name;
+  };
+
+  // Fonction pour anonymiser l'email
+  const anonymizeEmail = (email: string): string => {
+    // Ici, vous pouvez implémenter la logique de remplacement par une valeur anonyme
+    email = "email anonyme";
+    return email;
+  };
 
   const handleAjouterUtilisateur = async () => {
     try {
       const response = await fetch("http://185.212.227.8:3002/api/users/add", {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -79,25 +93,25 @@ export const Utilisateurs = () => {
     }
   };
 
-  const supprimerUtilisateur = async (id : number) => {
+  const supprimerUtilisateur = async (id: number) => {
     try {
-        const response = await fetch(`http://185.212.227.8:3002/api/users/del/${id}`, {
-          method: "DELETE",
-          headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        if (response.ok) {
-            window.location.reload();
-        } else {
-          console.error("Erreur lors de la suppression du contact");
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      const response = await fetch(`http://185.212.227.8:3002/api/users/del/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        console.error("Erreur lors de la suppression du contact");
       }
-    };
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div>
@@ -105,7 +119,7 @@ export const Utilisateurs = () => {
       <div className="flex justify-between">
         <a href="#ajouterUtilisateur">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-5 mt-3">
-              Ajouter un utilisateur
+            Ajouter un utilisateur
           </button>
         </a>
         <input
@@ -118,42 +132,41 @@ export const Utilisateurs = () => {
       </div>
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Liste des utilisateurs</h2>
-        { 
-            filteredResponse.map((utilisateur, key) => (
-                <div key={key} className="mb-4 p-4 border border-gray-300 rounded-md">
-                  <div className="flex justify-between">
-                    <div className="flex justify-between">
-                        <div className="mr-5">
-                            <p className="text-xl font-bold text-gray-600">
-                                {utilisateur.nom} {utilisateur.prenom}
-                            </p>
-                            <p className="text-gray-600">{utilisateur.email}</p>
-                        </div>
-                        <div className="bg-green-200 flex items-center rounded-md">
-                            <p className="text-sm font-bold text-gray-600 m-2">{utilisateur.role}</p>
-                        </div>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                        onClick={() => navigate(`/utilisateurs/${utilisateur.id}`, { state: { utilisateur } })}
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => supprimerUtilisateur(utilisateur.id)}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-                  </div>
+        {filteredResponse.map((utilisateur, key) => (
+          <div key={key} className="mb-4 p-4 border border-gray-300 rounded-md">
+            <div className="flex justify-between">
+              <div className="flex justify-between">
+                <div className="mr-5">
+                  <p className="text-xl font-bold text-gray-600">
+                    {anonymizeName(utilisateur.nom)} {anonymizeName(utilisateur.prenom)}
+                  </p>
+                  <p className="text-gray-600">{anonymizeEmail(utilisateur.email)}</p>
                 </div>
-              ))
-              
-        }
-        <h2 className="text-2xl font-bold mb-4" id="ajouterUtilisateur">Ajouter un utilisateur</h2>
+                <div className="bg-green-200 flex items-center rounded-md">
+                  <p className="text-sm font-bold text-gray-600 m-2">{utilisateur.role}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                  onClick={() => navigate(`/utilisateurs/${utilisateur.id}`, { state: { utilisateur } })}
+                >
+                  Modifier
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => supprimerUtilisateur(utilisateur.id)}
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+        <h2 className="text-2xl font-bold mb-4" id="ajouterUtilisateur">
+          Ajouter un utilisateur
+        </h2>
         <form className="grid grid-cols-2 gap-4">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Nom:</label>
@@ -224,7 +237,6 @@ export const Utilisateurs = () => {
           >
             Ajouter Utilisateur
           </button>
-          
         </form>
       </div>
     </div>
